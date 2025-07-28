@@ -23,7 +23,10 @@ export class LogginComponent implements OnInit {
     try {
       let sesion = await signIn({ username: this.email, password: this.password });
       console.log(sesion)
-      if (sesion.nextStep.signInStep == "DONE") this.isSigned = true;
+      if (sesion.nextStep.signInStep == "DONE") {
+        this.isSigned = true;
+        location.reload()
+      }
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
     }
