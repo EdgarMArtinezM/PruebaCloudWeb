@@ -1,0 +1,53 @@
+<div *ngIf="!isLoggin">
+  <app-loggin></app-loggin>
+</div>
+
+<div *ngIf="isLoggin">
+  <div *ngIf="mostrarTabla">
+    <div class="d-flex justify-content-center align-items-center vh-100">
+      <div class="table-responsive" style="max-width: 800px; width: 100%;">
+        <table class="table table-bordered table-striped table-hover text-center">
+          <thead class="table-primary">
+            <tr>
+              <th>DeviceID</th>
+              <th>Nombre</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of datos" (click)="onSeleccionFila(item)" style="cursor: pointer;">
+              <td>{{ item.deviceID }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.status | status }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+<div *ngIf="!mostrarTabla" class="d-flex flex-column align-items-center justify-content-center vh-100">
+  <h4 class="mb-4 text-center">Gráfica de Temperatura {{ filaSeleccionada.name }}</h4>
+
+  <div style="width: 80%; max-width: 600px;">
+    <canvas
+      baseChart
+      [data]="{
+        labels: chartLabels,
+        datasets: [{ data: chartData, label: 'Datos' }]
+      }"
+      [type]="'line'"
+      [options]="{
+        responsive: true,
+        maintainAspectRatio: false
+      }"
+      style="height: 300px;"
+    ></canvas>
+  </div>
+
+  <div style="display: flex; justify-content: center; align-items: center;">
+    <button class="btn btn-secondary mt-4" style="margin-right: 10px;" (click)="regresar()">Regresar</button>
+    <button class="btn btn-primary mt-4" (click)="reports()">Reporte</button>
+  </div>
+</div>
+</div>
